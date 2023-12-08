@@ -90,12 +90,17 @@ router.get("/calendars/:id/events", (request, response) => {
     });
   }
   const id = request.params.id;
+  const endDate = request.query.endDate;
+  const startDate = request.query.startDate;
   axios
-    .get(`https://www.googleapis.com/calendar/v3/calendars/${id}/events`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
+    .get(
+      `https://www.googleapis.com/calendar/v3/calendars/${id}/events?timeMin=${startDate}&timeMax=${endDate}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    )
     .then((axiosResponse) => {
       response.send({
         data: axiosResponse.data,
