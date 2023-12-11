@@ -92,7 +92,7 @@ router.get("/calendars/:id/events", (request, response) => {
   const id = request.params.id;
   const endDate = request.query.endDate;
   const startDate = request.query.startDate;
-  if (!endDate || !startDate) {
+  if (!endDate && !startDate) {
     response.status(400).send({
       message: "Start date & end date are required.",
     });
