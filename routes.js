@@ -92,6 +92,11 @@ router.get("/calendars/:id/events", (request, response) => {
   const id = request.params.id;
   const endDate = request.query.endDate;
   const startDate = request.query.startDate;
+  if (!endDate || !startDate) {
+    response.status(400).send({
+      message: "Start date & end date are required.",
+    });
+  }
   axios
     .get(
       `https://www.googleapis.com/calendar/v3/calendars/${id}/events?timeMin=${startDate}&timeMax=${endDate}`,
